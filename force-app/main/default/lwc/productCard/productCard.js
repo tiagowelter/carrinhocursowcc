@@ -10,7 +10,10 @@ export default class ProductCard extends LightningElement {
     }
     set product(value){
 
-        this._product = {id: value.Id, name: value.Name, price: value.Price__c, image: value.ProductImageArticle__c};
+        let imagePad = value.ProductImageArticle__c == null ? 'https://cdn.neemo.com.br/uploads/settings_webdelivery/logo/3136/image-not-found.jpg' : value.ProductImageArticle__c;
+        let pricePad = value.Price__c == null ? 0 : value.Price__c;
+
+        this._product = {id: value.Id, name: value.Name, price: pricePad, image: imagePad};
 
     }
 
