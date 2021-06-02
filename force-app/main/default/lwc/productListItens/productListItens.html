@@ -1,19 +1,27 @@
 <template>
 
-    <div class="slds-card sdl-p-around_x-small">
+    <div class="slds-card slds-p-around_x-small">
 
         <template if:true={produtos.data}>
 
             <div class="c-container">
+                <lightning-layout multiple-rows>
 
-                <template for:each={produtos.data.produtos} for:item="p">
+                    <template for:each={produtos.data.produtos} for:item="p">
+                        
+                        <lightning-layout-item size="4" padding="around-small" key={p.Id}>
 
-                    <tr key={p.Id}>
-                        <td>{p.Id}</td>
-                        <td>{p.Name}</td>
-                    </tr>
+                            <c-product-card
+                                product={p}
+                                class="slds-m-around_x-small"
+                            ></c-product-card>
 
-                </template>                
+                        </lightning-layout-item>
+    
+                    </template> 
+
+                </lightning-layout>
+               
 
             </div>
 
