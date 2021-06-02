@@ -1,0 +1,24 @@
+<template>
+
+    <div class="slds-card sdl-p-around_x-small">
+
+        <template if:true={produtos.data}>
+
+            <div class="c-container">
+
+                <template for:each={produtos.data.produtos} for:item="p">
+
+                    <tr key={p.Id}>
+                        <td>{p.Id}</td>
+                        <td>{p.Name}</td>
+                    </tr>
+
+                </template>                
+
+            </div>
+
+        </template>
+
+    </div>
+    
+</template>
