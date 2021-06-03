@@ -1,0 +1,43 @@
+<template>
+
+    <lightning-card title="Items do carrinho">
+
+
+        <div class="slds-p-top_medium slds-p-left_medium">
+
+            <table>
+
+                <tr>
+                    <th>Produto</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th></th>
+                </tr>
+
+                <template for:each={_products} for:item="p">
+
+                    <tr key={p.id}>
+
+                        <td>
+                            <p class="slds-text-title">{p.name}</p>
+                        </td>
+                        <td>
+                            {p.price}
+                        </td>
+                        <td>
+                            {p.quantity}
+                        </td>
+
+                    </tr>
+
+
+                </template>
+
+            </table>
+
+
+        </div>
+
+    </lightning-card>
+    
+</template>

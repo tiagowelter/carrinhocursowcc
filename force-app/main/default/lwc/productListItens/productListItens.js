@@ -2,7 +2,7 @@ import { LightningElement, track, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
 
 import getProdutos from '@salesforce/apex/ProductController.getProducts';
-import { registerListener, fireEvent } from 'c/pubsub';
+import { registerListener, unregisterAllListeners, fireEvent } from 'c/pubsub';
 
 export default class ProductListItens extends LightningElement {
 
@@ -17,7 +17,16 @@ export default class ProductListItens extends LightningElement {
         registerListener('filterChange', this.getChangedValue, this);
     
     }
-
+    
+    handleProductSelected(event) {
+        console.log('disparou o evento');
+        fireEvent(this.pageRef, 'productselected', event.detail);
+    }
+    
+    disconnectedCallback() {
+        unregisterAllListeners(this);
+    }
+    
     getChangedValue(param){
 
         this.filter = param;
