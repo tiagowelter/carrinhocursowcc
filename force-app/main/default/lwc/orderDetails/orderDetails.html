@@ -1,119 +1,124 @@
 <template>
+    <template if:true={getAccountId}>
 
-    <lightning-card title="Itens do carrinho">
+        <lightning-card title="Itens do carrinho">
 
-        <div class="slds-p-top_medium slds-p-left_medium">
+            <div class="slds-p-top_medium slds-p-left_medium">
 
-            <table>
+                <table>
 
-                <tr>
-                    <th>Produto</th>
-                    <th>Preço</th>
-                    <th>Quantidade</th>
-                    <th></th>
-                </tr>
-
-                <template for:each={_products} for:item="p" for:index="productPosition">
-
-                    <tr key={p.id}>
-
-                        <td>
-                            <p class="slds-text-title">{p.name}</p>
-                        </td>
-                        <td style="padding-left:10px;">
-                            <lightning-input 
-                                class="slds-m-bottom_small slds-text-title" 
-                                type="currency"
-                                min="0"
-                                step="1"
-                                value={p.price}
-                                aria-rowindex={productPosition}
-                                onchange={handleProductPrice}
-                            >
-                            </lightning-input>                            
-                        </td>
-                        <td style="padding-left:10px;">
-                            <lightning-input
-                                class="slds-m-bottom_small slds-text-title" 
-                                type="number"
-                                min="1"
-                                step="1"
-                                value={p.quantity}
-                                aria-rowindex={productPosition}
-                                onchange={handleProductQuantity}
-                            >
-                            </lightning-input>
-                        </td>
-
-                        <td style="width: 16%; padding-left:10px;">
-
-                            <button class="slds-button slds-button_icon" onclick={handleRemoveProduct} data-record={p.id}>
-                                <svg class="slds-button__icon slds-button__icon_large" data-key="recycle_bin_empty">
-                                    <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#recycle_bin_empty"></use>
-                                </svg>
-                            </button>
-
-                        </td>
-
+                    <tr>
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th></th>
                     </tr>
 
+                    <template for:each={_products} for:item="p" for:index="productPosition">
+
+                        <tr key={p.id}>
+
+                            <td>
+                                <p class="slds-text-title">{p.name}</p>
+                            </td>
+                            <td style="padding-left:10px;">
+                                <lightning-input 
+                                    class="slds-m-bottom_small slds-text-title" 
+                                    type="currency"
+                                    min="0"
+                                    step="1"
+                                    value={p.price}
+                                    aria-rowindex={productPosition}
+                                    onchange={handleProductPrice}
+                                >
+                                </lightning-input>                            
+                            </td>
+                            <td style="padding-left:10px;">
+                                <lightning-input
+                                    class="slds-m-bottom_small slds-text-title" 
+                                    type="number"
+                                    min="1"
+                                    step="1"
+                                    value={p.quantity}
+                                    aria-rowindex={productPosition}
+                                    onchange={handleProductQuantity}
+                                >
+                                </lightning-input>
+                            </td>
+
+                            <td style="width: 16%; padding-left:10px;">
+
+                                <button class="slds-button slds-button_icon" onclick={handleRemoveProduct} data-record={p.id}>
+                                    <svg class="slds-button__icon slds-button__icon_large" data-key="recycle_bin_empty">
+                                        <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#recycle_bin_empty"></use>
+                                    </svg>
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+
+                    </template>
+
+                </table>
+
+                <template if:true={hasProduct}>
+                    <div class="slds-m-around_medium slds-p-top_medium slds-p-left_medium" style="text-align: right;">
+                        Valor Total: 
+
+                        <lightning-formatted-number
+                            format-style="currency"
+                            currency-code="BRL"
+                            value={valorTotal}
+                            maximum-fraction-digits="2"
+                        ></lightning-formatted-number>                
+
+                    </div>
+                
+                    <div class="slds-m-around_medium slds-p-top_medium slds-p-left_medium">
+
+                        <lightning-input 
+                            type="text"
+                            name="opportunityName"
+                            label="Informe o nome da venda"
+                            onchange={handlerOppName}    
+                        ></lightning-input>
+                        
+                        <lightning-input 
+                            type="date"
+                            name="opportunityClosedDate"
+                            label="Informe a data de fechamento"  
+                            onchange={handlerOppDate}    
+                        ></lightning-input>                    
+                    
+                    </div>
+
+                    <template if:true={getIsEnabledSave}>
+                        <center>
+                            <lightning-button variant="brand" label="Salvar" onclick={openModal}></lightning-button>
+                        </center>
+                    </template>
 
                 </template>
 
-            </table>
+                <template if:true={getIsOpenModal}>
+                    <c-order-confirmation
+                        products={_products}
+                        nameopp={opportunityName}
+                        dateopp={opportunityDate}
+                        valortotal={valorTotal}
+                        accountid={accountId}
+                        oncancelconfirmation={handleCancelConfirmation}
+                    ></c-order-confirmation>
+                </template>
 
-            <template if:true={hasProduct}>
-                <div class="slds-m-around_medium slds-p-top_medium slds-p-left_medium" style="text-align: right;">
-                    Valor Total: 
+            </div>
 
-                    <lightning-formatted-number
-                        format-style="currency"
-                        currency-code="BRL"
-                        value={valorTotal}
-                        maximum-fraction-digits="2"
-                    ></lightning-formatted-number>                
-
-                </div>
-            
-                <div class="slds-m-around_medium slds-p-top_medium slds-p-left_medium">
-
-                    <lightning-input 
-                        type="text"
-                        name="opportunityName"
-                        label="Informe o nome da venda"
-                        onchange={handlerOppName}    
-                    ></lightning-input>
-                    
-                    <lightning-input 
-                        type="date"
-                        name="opportunityClosedDate"
-                        label="Informe a data de fechamento"  
-                        onchange={handlerOppDate}    
-                    ></lightning-input>                    
-                
-                </div>
-
-                <center>
-                    <lightning-button variant="brand" label="Salvar" onclick={openModal}></lightning-button>
-                </center>
-
-            </template>
-
-            <template if:true={getIsOpenModal}>
-                <c-order-confirmation
-                    products={_products}
-                    nameopp={opportunityName}
-                    dateopp={opportunityDate}
-                    valortotal={valorTotal}
-                    oncancelconfirmation={handleCancelConfirmation}
-                ></c-order-confirmation>
-            </template>
-
-        </div>
-
-    </lightning-card>
-    <br/>
-    <br/>
-    <br/>
+        </lightning-card>
+        <br/>
+        <br/>
+        <br/>
+    </template>
     
 </template>

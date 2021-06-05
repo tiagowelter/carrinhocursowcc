@@ -10,10 +10,12 @@ export default class OrderDetails extends LightningElement {
     @track isShowModal = false;
     @track opportunityName = null;
     @track opportunityDate = null;
+    @track accountId = null;
 
     @wire(CurrentPageReference) pageRef;
 
     connectedCallback(){
+        registerListener('selectedAccount', this.getAccount, this);
         registerListener('productselected', this.handleProductSelect,this);
     }
 
@@ -92,4 +94,17 @@ export default class OrderDetails extends LightningElement {
         this.isShowModal = false;
     }
 
+    get getIsEnabledSave(){
+        return this.opportunityName != null && this.opportunityDate != null && this.accountId != null;
+    }
+    
+    getAccount(account){
+
+        this.accountId = account;
+
+    }
+
+    get getAccountId(){
+        return this.accountId != null;
+    }
 }

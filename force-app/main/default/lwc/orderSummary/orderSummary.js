@@ -2,7 +2,7 @@ import { LightningElement, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import findOpportunities from '@salesforce/apex/OpportunitySummaryController.findOpportunities';
 
-export default class OrderSummary extends LightningElement {
+export default class OrderSummary extends NavigationMixin(LightningElement) {
 
     @track opportunities = [];
 

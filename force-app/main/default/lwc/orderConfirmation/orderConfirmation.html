@@ -8,7 +8,6 @@
         aria-describedby="modal-content-id-1"
         class="slds-modal slds-fade-in-open slds-modal_large">
 
-
         <div class="slds-modal__container">
         
             <header class="slds-modal__header">
@@ -18,8 +17,10 @@
             <div class="slds-modal__content slds-p-around_medium warning-messages" id="modal-content-id-1" >
 
                 <p>Detalhes da venda:</p>
-                <p>Nome da venda:</p>{nameopp}
+                <p>Nome da venda: {nameopp}</p>
+                <p>Data de fechamento: {dateopp}</p>
 
+                <br/>
                 <table style="margin-bottom:30px">
 
                     <tr>
@@ -40,16 +41,28 @@
 
                 </table>
 
+                <template if:true={getHasError}>
+                
+                    <div class="slds-p-around_medium">
+    
+                        <lightning-icon icon-name="utility:error"></lightning-icon>
+    
+                        <div class="slds-p-around_small">
+                            <p>{errorMessage}</p>
+                        </div>
+    
+                    </div>
+    
+                </template>                
+
             </div>
 
             <footer class="slds-modal__footer">
                 <lightning-button variant="destructive" label="Cancelar" onclick={closeModal}></lightning-button>
-                <lightning-button variant="brand" label="Sim, processar!"></lightning-button>
+                <lightning-button variant="brand" label="Sim, processar!" onclick={executeOpportunity}></lightning-button>
             </footer>
 
         </div>
-
-
 
     </section>
     <div class="slds-backdrop slds-backdrop_open"></div>

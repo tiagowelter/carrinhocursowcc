@@ -1,15 +1,30 @@
 import { LightningElement, track, wire } from 'lwc';
-//import {CurrentPage} from 'lightning/navigation';
 import { CurrentPageReference } from 'lightning/navigation';
-
-import {fireEvent} from 'c/pubsub';
+import {registerListener, fireEvent} from 'c/pubsub';
 
 export default class ProductSearch extends LightningElement {
 
     @track filter = null;
+    @track accountId = null;
 
-    //@wire(CurrentPage) pageRef;
     @wire(CurrentPageReference) pageRef;
+
+    connectedCallback(){
+        
+        registerListener('selectedAccount', this.getAccount, this);
+
+    }
+
+    getAccount(account){
+
+        this.accountId = account;
+        console.log('CAPTUROU NO OUTRO COMPONENTE', account);
+
+    }
+
+    get getAccountId(){
+        return this.accountId != null;
+    }
 
     handleSearch(event){
 

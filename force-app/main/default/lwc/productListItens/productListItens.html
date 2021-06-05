@@ -1,33 +1,36 @@
 <template>
 
-    <div class="slds-card slds-p-around_x-small">
+    <template if:true={getAccountId}>
 
-        <template if:true={produtos.data}>
+        <div class="slds-card slds-p-around_x-small">
 
-            <div class="c-container">
-                <lightning-layout multiple-rows>
+            <template if:true={produtos.data}>
 
-                    <template for:each={produtos.data.produtos} for:item="p">
-                        
-                        <lightning-layout-item size="4" padding="around-small" key={p.Id}>
+                <div class="c-container">
+                    <lightning-layout multiple-rows>
 
-                            <c-product-card
-                                product={p}
-                                onselected={handleProductSelected}
-                                class="slds-m-around_x-small"
-                            ></c-product-card>
+                        <template for:each={produtos.data.produtos} for:item="p">
+                            
+                            <lightning-layout-item size="4" padding="around-small" key={p.Id}>
 
-                        </lightning-layout-item>
-    
-                    </template> 
+                                <c-product-card
+                                    product={p}
+                                    onselected={handleProductSelected}
+                                    class="slds-m-around_x-small"
+                                ></c-product-card>
 
-                </lightning-layout>
-               
+                            </lightning-layout-item>
+        
+                        </template> 
 
-            </div>
+                    </lightning-layout>
+                
 
-        </template>
+                </div>
 
-    </div>
+            </template>
+
+        </div>
+    </template>
     
 </template>
