@@ -88,4 +88,8 @@ export default class OrderDetails extends LightningElement {
         this.opportunityDate = event.currentTarget.value;
     }
 
+    handleCancelConfirmation(){
+        this.isShowModal = false;
+    }
+
 }

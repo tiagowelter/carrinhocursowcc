@@ -1,5 +1,5 @@
 import { LightningElement, track } from 'lwc';
-import {NavigationMixin} from 'lightning/navigation';
+import { NavigationMixin } from 'lightning/navigation';
 import findOpportunities from '@salesforce/apex/OpportunitySummaryController.findOpportunities';
 
 export default class OrderSummary extends LightningElement {
@@ -32,7 +32,7 @@ export default class OrderSummary extends LightningElement {
         this[NavigationMixin.Navigate]({
             type: 'standard__navItemPage',
             attributes: {
-                apiName: 'Carrinho1'
+                apiName: 'Carrinho'
             }
         });
     }

@@ -18,21 +18,40 @@
             <div class="slds-modal__content slds-p-around_medium warning-messages" id="modal-content-id-1" >
 
                 <p>Detalhes da venda:</p>
+                <p>Nome da venda:</p>{nameopp}
 
                 <table style="margin-bottom:30px">
 
                     <tr>
 
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+
                     </tr>
+
+                    <template for:each={products} for:item="p">
+                        <tr key={p.id}>
+                            <td>{p.name}</td>
+                            <td>{p.price}</td>
+                            <td>{p.quantity}</td>
+                        </tr>
+                    </template>
 
                 </table>
 
             </div>
+
+            <footer class="slds-modal__footer">
+                <lightning-button variant="destructive" label="Cancelar" onclick={closeModal}></lightning-button>
+                <lightning-button variant="brand" label="Sim, processar!"></lightning-button>
+            </footer>
 
         </div>
 
 
 
     </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
     
 </template>
