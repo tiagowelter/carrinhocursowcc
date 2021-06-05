@@ -7,6 +7,9 @@ export default class OrderDetails extends LightningElement {
 
     @track _products = [];
     @track valorTotal = 0;
+    @track isShowModal = false;
+    @track opportunityName = null;
+    @track opportunityDate = null;
 
     @wire(CurrentPageReference) pageRef;
 
@@ -67,6 +70,22 @@ export default class OrderDetails extends LightningElement {
 
     getProductFromList(product){
         return this._products.find( prod => prod.id === product.id);
+    }
+
+    openModal(){
+        this.isShowModal = true;
+    }
+
+    get getIsOpenModal(){
+        return this.isShowModal;
+    }
+
+    handlerOppName(event){
+        this.opportunityName = event.currentTarget.value;
+    }
+
+    handlerOppDate(event){
+        this.opportunityDate = event.currentTarget.value;
     }
 
 }

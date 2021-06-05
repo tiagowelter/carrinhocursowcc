@@ -1,7 +1,6 @@
 <template>
 
-    <lightning-card title="Items do carrinho">
-
+    <lightning-card title="Itens do carrinho">
 
         <div class="slds-p-top_medium slds-p-left_medium">
 
@@ -75,8 +74,39 @@
                     ></lightning-formatted-number>                
 
                 </div>
+            
+                <div class="slds-m-around_medium slds-p-top_medium slds-p-left_medium">
+
+                    <lightning-input 
+                        type="text"
+                        name="opportunityName"
+                        label="Informe o nome da venda"
+                        onchange={handlerOppName}    
+                    ></lightning-input>
+                    
+                    <lightning-input 
+                        type="date"
+                        name="opportunityClosedDate"
+                        label="Informe a data de fechamento"  
+                        onchange={handlerOppDate}    
+                    ></lightning-input>                    
+                
+                </div>
+
+                <center>
+                    <lightning-button variant="brand" label="Salvar" onclick={openModal}></lightning-button>
+                </center>
+
             </template>
 
+            <template if:true={getIsOpenModal}>
+                <c-order-confirmation
+                    products={_products}
+                    nameopp={opportunityName}
+                    dateopp={opportunityDate}
+                    valortotal={valorTotal}
+                ></c-order-confirmation>
+            </template>
 
         </div>
 
